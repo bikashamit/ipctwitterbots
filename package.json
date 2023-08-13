@@ -25,10 +25,6 @@
     ]
   },
 
-  "functions": {
-    "api/mentionBot": "functions/mentionBot.js"
-  },
-  
   "browserslist": {
     "production": [
       ">0.2%",
