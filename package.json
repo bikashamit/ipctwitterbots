@@ -37,3 +37,8 @@
     ]
   }
 }
+{
+  "functions": {
+    "api/mentionBot": "functions/mentionBot.js"
+  }
+}
