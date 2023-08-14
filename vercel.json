@@ -1,7 +1,6 @@
 
 {
-    "functions": {
-      "api/mentionBot": "functions/mentionBot.js"
-    }
-  }
-  
+  "routes": [
+    { "src": "/api/mentionBot", "dest": "functions/mentionBot.js" }
+  ]
+}
