@@ -6,7 +6,7 @@ function App() {
   const [username, setUsername] = useState('');
   const [tweets, setTweets] = useState([]);
 
-  const handleFetchTweets = async () => {
+  
     const handleFetchTweets = async () => {
       try {
         const response = await axios.get('/api/getTweets', {
@@ -23,7 +23,7 @@ function App() {
       }
     };
     
-  };
+
 
   return (
     <div>
