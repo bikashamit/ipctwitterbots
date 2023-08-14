@@ -9,19 +9,14 @@ const twitterConfig = {
 };
 const twitterApi = new Twit(twitterConfig);
 
+// functions/getTweets.js
 module.exports = async (req, res) => {
-  console.log('Function is being executed.');
-  const { username } = req.query;
-
   try {
-    const tweets = await twitterApi.get('statuses/user_timeline', {
-      screen_name: username,
-      count: 5 // Number of recent tweets to retrieve
-    });
-    console.log('am i working...')
-    res.status(200).json(tweets.data);
+    const tweets = ["Tweet 1", "Tweet 2", "Tweet 3"]; // Replace with actual data
+    res.status(200).json(tweets);
   } catch (error) {
     console.error('Error fetching tweets:', error);
     res.status(500).json({ error: 'Failed to fetch tweets' });
   }
 };
+
