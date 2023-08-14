@@ -7,15 +7,22 @@ function App() {
   const [tweets, setTweets] = useState([]);
 
   const handleFetchTweets = async () => {
-    try {
-      const response = await axios.get('/api/getTweets', {
-        params: { username }
-      });
-
-      setTweets(response.data);
-    } catch (error) {
-      console.error('Error fetching tweets:', error);
-    }
+    const handleFetchTweets = async () => {
+      try {
+        const response = await axios.get('/api/getTweets', {
+          params: { username }
+        });
+    
+        if (Array.isArray(response.data)) {
+          setTweets(response.data);
+        } else {
+          console.error('Invalid response data:', response.data);
+        }
+      } catch (error) {
+        console.error('Error fetching tweets:', error);
+      }
+    };
+    
   };
 
   return (
