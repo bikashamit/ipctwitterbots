@@ -13,7 +13,9 @@ const twitterApi = new Twit(twitterConfig);
 module.exports = async (req, res) => {
   try {
     const tweets = ["Tweet 1", "Tweet 2", "Tweet 3"]; // Replace with actual data
-    res.status(200).json(tweets);
+    // Example of sending a JSON response
+    res.status(200).json({ message: "Success", data: tweets });
+
   } catch (error) {
     console.error('Error fetching tweets:', error);
     res.status(500).json({ error: 'Failed to fetch tweets' });
