@@ -2,5 +2,15 @@
 {
   "routes": [
     { "src": "/api/getTweets", "dest": "functions/getTweets.js" }
+  ],
+  "headers": [
+    {
+      "source": "/api/getTweets",
+      "headers": [
+        { "key": "Access-Control-Allow-Origin", "value": "*" },
+        { "key": "Access-Control-Allow-Methods", "value": "GET,OPTIONS" },
+        { "key": "Access-Control-Allow-Headers", "value": "*" }
+      ]
+    }
   ]
 }
