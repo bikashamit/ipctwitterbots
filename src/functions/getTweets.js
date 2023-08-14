@@ -17,7 +17,7 @@ module.exports = async (req, res) => {
       screen_name: username,
       count: 5 // Number of recent tweets to retrieve
     });
-
+    console.log('am i working...')
     res.status(200).json(tweets.data);
   } catch (error) {
     console.error('Error fetching tweets:', error);
