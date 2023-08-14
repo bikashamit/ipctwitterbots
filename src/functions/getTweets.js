@@ -10,6 +10,7 @@ const twitterConfig = {
 const twitterApi = new Twit(twitterConfig);
 
 module.exports = async (req, res) => {
+  console.log('Function is being executed.');
   const { username } = req.query;
 
   try {
