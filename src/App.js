@@ -1,23 +1,38 @@
+// src/App.js
 import React, { useState } from 'react';
-import axios from 'axios'
+import axios from 'axios';
 
 function App() {
-  const [response, setResponse] = useState('');
+  const [username, setUsername] = useState('');
+  const [tweets, setTweets] = useState([]);
 
-  const handleButtonClick = async () => {
+  const handleFetchTweets = async () => {
     try {
-      const res = await axios.get('/api/mentionBot');
-      setResponse(res.data.message);
+      const response = await axios.get('/api/getTweets', {
+        params: { username }
+      });
+
+      setTweets(response.data);
     } catch (error) {
-      console.error('Error:', error);
-      setResponse('An error occurred');
+      console.error('Error fetching tweets:', error);
     }
   };
 
   return (
     <div>
-      <button onClick={handleButtonClick}>Trigger Bot</button>
-      <p>{response}</p>
+      <h1>Twitter App</h1>
+      <input
+        type="text"
+        value={username}
+        onChange={(e) => setUsername(e.target.value)}
+        placeholder="Enter Twitter Handle"
+      />
+      <button onClick={handleFetchTweets}>Fetch Tweets</button>
+      <ul>
+        {tweets.map((tweet) => (
+          <li key={tweet.id}>{tweet.text}</li>
+        ))}
+      </ul>
     </div>
   );
 }

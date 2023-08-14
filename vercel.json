@@ -1,6 +1,6 @@
 
 {
   "routes": [
-    { "src": "/api/mentionBot", "dest": "functions/mentionBot.js" }
+    { "src": "/api/getTweets", "dest": "src/functions/getTweets.js" }
   ]
 }
