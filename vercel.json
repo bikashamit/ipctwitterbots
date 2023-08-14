@@ -1,6 +1,6 @@
 
 {
   "routes": [
-    { "src": "/api/getTweets", "dest": "src/functions/getTweets.js" }
+    { "src": "/api/getTweets", "dest": "functions/getTweets.js" }
   ]
 }
