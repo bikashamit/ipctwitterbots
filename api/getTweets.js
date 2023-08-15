@@ -1,24 +1,33 @@
-// src/functions/getTweets.js
+// twitterBot.js
 const Twit = require('twit');
 
 const twitterConfig = {
-  consumer_key: 'gBTrIFF11tboJPiMqriafGNzO',
-  consumer_secret: '7RR0BjD6LCfsZVTgbLE9Mx4kNzysYS8uemMahGPW10DgI9uepW',
-  access_token: '293371547-5R6UI5bS0UUyp4cevFb66O81mI2HCupibYcucyvW',
-  access_token_secret: 'IfDEINb3B0mBC90kxGwMFGp9Drc75BiaBOrf63S507CIK'
+  consumer_key: '21ZwOAvOIrXVUsVZXwnErhuDX',
+  consumer_secret: 'OKBtHab8HqzT0gsyIW5tem0pFD7D3hUY0tzYOa6rJCrW0B0yZg',
+  access_token: '1691301964498542592-Ymy0C51e2BHoQiL9XfDxczlfcVhpwu',
+  access_token_secret: 'pnyQ0GgfheOR0WX2rFOy7pW4rYV2T4NqZzCPhivVxH3QW'
 };
+
 const twitterApi = new Twit(twitterConfig);
 
-// functions/getTweets.js
-module.exports = async (req, res) => {
-  try {
-    const tweets = ["Tweet 1", "Tweet 2", "Tweet 3"]; // Replace with actual data
-    // Example of sending a JSON response
-    res.status(200).json({ message: "Success", data: tweets });
+const stream = twitterApi.stream('statuses/filter', { track: '@YourBotUsername' });
 
-  } catch (error) {
-    console.error('Error fetching tweets:', error);
-    res.status(500).json({ error: 'Failed to fetch tweets' });
-  }
-};
+stream.on('tweet', tweet => {
+  const tweetId = tweet.id_str;
+  const username = tweet.user.screen_name;
+
+  // Reply to the tweet
+  const replyText = `Hello @${username}! Thank you for tagging me.`;
+  twitterApi.post('statuses/update', { status: replyText, in_reply_to_status_id: tweetId }, (err, data) => {
+    if (err) {
+      console.error('Error replying to tweet:', err);
+    } else {
+      console.log('Reply sent successfully:', data.text);
+    }
+  });
+});
+
+stream.on('error', error => {
+  console.error('Stream error:', error);
+});
 
