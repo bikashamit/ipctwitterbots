@@ -1,5 +1,4 @@
-// src/components/TriggerButton.js
-import React from 'react';
+import React, { useEffect } from 'react';
 
 const TriggerButton = () => {
   const handleTrigger = async () => {
@@ -12,8 +11,16 @@ const TriggerButton = () => {
     }
   };
 
+  useEffect(() => {
+    // Run the handleTrigger function every second
+    const intervalId = setInterval(handleTrigger, 1000);
+
+    // Clean up the interval when the component unmounts
+    return () => clearInterval(intervalId);
+  }, []);
+
   return (
-    <button onClick={handleTrigger}>Trigger Twitter Bot</button>
+    <button>Twitter Bot is Running</button>
   );
 };
 
