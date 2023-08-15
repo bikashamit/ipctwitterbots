@@ -14,9 +14,6 @@ module.exports = async (req, res) => {
   try {
     const stream = twitterApi.stream('statuses/filter', { track: '@ipcExplainBot' });
     console.log('Twitter bot is now listening for tweets.');
-    setTimeout(()=>{
-      console.log('login test by set time out')
-    },1000)
     stream.on('tweet', tweet => {
       try {
         const tweetId = tweet.id_str;
