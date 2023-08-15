@@ -9,12 +9,15 @@ const twitterConfig = {
 };
 
 const twitterApi = new Twit(twitterConfig);
-
 module.exports = async (req, res) => {
   try {
     const stream = twitterApi.stream('statuses/filter', { track: '@ipcExplainBot' });
 
+    console.log('Twitter bot is now listening for tweets.');
+
     stream.on('tweet', tweet => {
+      console.log('Tweet received:', tweet.text);
+      
       const tweetId = tweet.id_str;
       const username = tweet.user.screen_name;
 
@@ -41,5 +44,4 @@ module.exports = async (req, res) => {
     res.status(500).json({ error: 'An error occurred' });
   }
 };
-
-
+ 
