@@ -17,15 +17,14 @@ module.exports = async (req, res) => {
 
     stream.on('tweet', tweet => {
       console.log('Tweet received:', tweet.text);
-      
-      const tweetId = tweet.id_str;
-      const username = tweet.user.screen_name;
+      console.log('Tweet ID:', tweet.id_str);
+      console.log('Username:', tweet.user.screen_name);
 
       // Your reply logic here
 
       // Example: Reply to the tweet
-      const replyText = `Hello @${username}! Thank you for tagging me.`;
-      twitterApi.post('statuses/update', { status: replyText, in_reply_to_status_id: tweetId }, (err, data) => {
+      const replyText = `Hello @${tweet.user.screen_name}! Thank you for tagging me.`;
+      twitterApi.post('statuses/update', { status: replyText, in_reply_to_status_id: tweet.id_str }, (err, data) => {
         if (err) {
           console.error('Error replying to tweet:', err);
         } else {
@@ -44,4 +43,3 @@ module.exports = async (req, res) => {
     res.status(500).json({ error: 'An error occurred' });
   }
 };
- 
