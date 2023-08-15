@@ -1,26 +1,22 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 
 const TriggerButton = () => {
   const handleTrigger = async () => {
     try {
       const response = await fetch('/api/getTweets');
       const data = await response.json();
-      console.log(data);
+      console.log('Function response:', data);
+
+      if (data.message === 'Twitter bot is now listening.') {
+        console.log('Twitter bot is now listening for tweets.');
+      }
     } catch (error) {
       console.error('Error triggering function:', error);
     }
   };
 
-  useEffect(() => {
-    // Run the handleTrigger function every second
-    const intervalId = setInterval(handleTrigger, 1000);
-
-    // Clean up the interval when the component unmounts
-    return () => clearInterval(intervalId);
-  }, []);
-
   return (
-    <button>Twitter Bot is Running</button>
+    <button onClick={handleTrigger}>Trigger Twitter Bot</button>
   );
 };
 
