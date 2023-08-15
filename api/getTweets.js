@@ -1,4 +1,3 @@
-// twitterBotFunction.js
 const Twit = require('twit');
 
 const twitterConfig = {
@@ -13,7 +12,7 @@ const twitterApi = new Twit(twitterConfig);
 module.exports = async (req, res) => {
   try {
     const stream = twitterApi.stream('statuses/filter', { track: '@ipcExplainBot' });
-    console.log('Twitter bot is now listening for tweets.');
+
     stream.on('tweet', tweet => {
       try {
         const tweetId = tweet.id_str;
