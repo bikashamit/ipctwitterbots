@@ -9,6 +9,7 @@ const FetchTweets = () => {
       })
       .catch(error => {
         console.error('Error fetching tweets:', error);
+        res.status(500).json({ error: 'Failed to fetch tweets', details: error.message });
       });
   }, []);
 
