@@ -4,7 +4,9 @@ const twitterConfig = {
   consumer_key: '21ZwOAvOIrXVUsVZXwnErhuDX',
   consumer_secret: 'OKBtHab8HqzT0gsyIW5tem0pFD7D3hUY0tzYOa6rJCrW0B0yZg',
   access_token: '1691301964498542592-Ymy0C51e2BHoQiL9XfDxczlfcVhpwu',
-  access_token_secret: 'pnyQ0GgfheOR0WX2rFOy7pW4rYV2T4NqZzCPhivVxH3QW'
+  access_token_secret: 'pnyQ0GgfheOR0WX2rFOy7pW4rYV2T4NqZzCPhivVxH3QW',
+  timeout_ms: 60 * 1000,
+  strictSSL: true,
 };
 
 const twitterApi = new Twit(twitterConfig);
