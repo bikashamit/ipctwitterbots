@@ -1,23 +1,22 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 
-const TriggerButton = () => {
-  const handleTrigger = async () => {
-    try {
-      const response = await fetch('/api/getTweets');
-      const data = await response.json();
-      console.log('Function response:', data);
-
-      if (data.message === 'Twitter bot is now listening.') {
-        console.log('Twitter bot is now listening for tweets.');
-      }
-    } catch (error) {
-      console.error('Error triggering function:', error);
-    }
-  };
+const FetchTweets = () => {
+  useEffect(() => {
+    fetch('/api/getTweets')
+      .then(response => response.json())
+      .then(data => {
+        console.log('Fetched tweets:', data);
+      })
+      .catch(error => {
+        console.error('Error fetching tweets:', error);
+      });
+  }, []);
 
   return (
-    <button onClick={handleTrigger}>Trigger Twitter Bot</button>
+    <div>
+      <h1>Fetching Tweets</h1>
+    </div>
   );
 };
 
-export default TriggerButton;
+export default FetchTweets;
