@@ -9,28 +9,35 @@ const twitterConfig = {
 };
 
 const twitterApi = new Twit(twitterConfig);
+
 module.exports = async (req, res) => {
   try {
     const stream = twitterApi.stream('statuses/filter', { track: '@ipcExplainBot' });
 
-    console.log('Twitter bot is now listening for tweets.');
-
     stream.on('tweet', tweet => {
-      console.log('Tweet received:', tweet.text);
-      console.log('Tweet ID:', tweet.id_str);
-      console.log('Username:', tweet.user.screen_name);
+      try {
+        const tweetId = tweet.id_str;
+        const username = tweet.user.screen_name;
 
-      // Your reply logic here
+        // Your reply logic here
 
-      // Example: Reply to the tweet
-      const replyText = `Hello @${tweet.user.screen_name}! Thank you for tagging me.`;
-      twitterApi.post('statuses/update', { status: replyText, in_reply_to_status_id: tweet.id_str }, (err, data) => {
-        if (err) {
-          console.error('Error replying to tweet:', err);
-        } else {
-          console.log('Reply sent successfully:', data.text);
-        }
-      });
+        // Example: Reply to the tweet
+        const replyText = `Hello @${username}! Thank you for tagging me.`;
+        twitterApi.post('statuses/update', { status: replyText, in_reply_to_status_id: tweetId }, (err, data) => {
+          if (err) {
+            console.error('Error replying to tweet:', err);
+          } else {
+            console.log('Reply sent successfully:', data.text);
+          }
+        });
+
+        // Log the received tweet details
+        console.log('Tweet received:', tweet.text);
+        console.log('Tweet ID:', tweet.id_str);
+        console.log('Username:', tweet.user.screen_name);
+      } catch (error) {
+        console.error('Error handling tweet:', error);
+      }
     });
 
     stream.on('error', error => {
