@@ -2,7 +2,7 @@
 {
   "headers": [
     {
-      "source":"functions/getTweets.js",
+      "source":"/api/getTweets.js",
       "headers": [
         { "key": "Access-Control-Allow-Origin", "value": "*" },
         { "key": "Access-Control-Allow-Methods", "value": "GET,OPTIONS" },
