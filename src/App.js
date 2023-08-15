@@ -1,47 +1,20 @@
-// src/App.js
-import React, { useState } from 'react';
-import axios from 'axios';
+// src/components/TriggerButton.js
+import React from 'react';
 
-function App() {
-  const [username, setUsername] = useState('');
-  const [tweets, setTweets] = useState([]);
-
-  
-    const handleFetchTweets = async () => {
-      try {
-        const response = await axios.get('/api/getTweets', {
-          params: { username }
-        });
-    
-        if (Array.isArray(response.data)) {
-          setTweets(response.data);
-        } else {
-          console.error('Invalid response data:', response.data);
-        }
-      } catch (error) {
-        console.error('Error fetching tweets:', error);
-      }
-    };
-    
-
+const TriggerButton = () => {
+  const handleTrigger = async () => {
+    try {
+      const response = await fetch('/api/getTweets');
+      const data = await response.json();
+      console.log(data);
+    } catch (error) {
+      console.error('Error triggering function:', error);
+    }
+  };
 
   return (
-    <div>
-      <h1>Twitter App</h1>
-      <input
-        type="text"
-        value={username}
-        onChange={(e) => setUsername(e.target.value)}
-        placeholder="Enter Twitter Handle"
-      />
-      <button onClick={handleFetchTweets}>Fetch Tweets</button>
-      <ul>
-        {tweets.map((tweet) => (
-          <li key={tweet.id}>{tweet.text}</li>
-        ))}
-      </ul>
-    </div>
+    <button onClick={handleTrigger}>Trigger Twitter Bot</button>
   );
-}
+};
 
-export default App;
+export default TriggerButton;
