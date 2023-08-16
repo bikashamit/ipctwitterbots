@@ -11,13 +11,24 @@ const twitterApi = new Twit(twitterConfig);
 
 module.exports = async (req, res) => {
   try {
-    // Fetch tweets using the Twitter API
-    const response = await twitterApi.get('statuses/user_timeline', { screen_name: 'TwitterDev', count: 5 });
-    const tweets = response.data.map(tweet => tweet.text);
-
-    res.status(200).json({ message: 'Success', data: tweets });
+    // Fetch tweets from the @am_IT___ user's timeline
+    twitterApi.get('statuses/user_timeline', { screen_name: 'am_IT___', count: 10 }, (err, data) => {
+      if (err) {
+        console.error('Error fetching tweets:', err);
+        res.status(500).json({ error: 'Failed to fetch tweets' });
+      } else {
+        // Extract relevant tweet data and send as response
+        const tweets = data.map(tweet => ({
+          id: tweet.id_str,
+          text: tweet.text,
+          user: tweet.user.screen_name,
+          created_at: tweet.created_at
+        }));
+        res.status(200).json({ message: 'Success', data: tweets });
+      }
+    });
   } catch (error) {
-    console.error('Error fetching tweets:', error);
-    res.status(500).json({ error: 'Failed to fetch tweets' });
+    console.error('Error:', error);
+    res.status(500).json({ error: 'An error occurred' });
   }
 };
